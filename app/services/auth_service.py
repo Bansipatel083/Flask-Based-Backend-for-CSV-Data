@@ -37,3 +37,4 @@ def authenticate_user(data):
         return {"msg": "Login successful", "access_token": access_token, "status": 200}
 
     return {"msg": "Invalid username/email or password", "status": 401}
+

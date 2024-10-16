@@ -5,7 +5,7 @@ import os
 
 purchase_bp = Blueprint('purchase', __name__)
 
-@purchase_bp.route('/fatch_csv', methods=['POST'])
+@purchase_bp.route('/api/fatch_csv', methods=['POST'])
 def fatch_csv():
     if 'file' not in request.files:
         return jsonify({"error": "No file part in the request"})
@@ -24,7 +24,7 @@ def fatch_csv():
     except ValueError as ve:
         return jsonify({"error": str(ve)}), 500
 
-@purchase_bp.route('/get_purchase', methods=['GET'])
+@purchase_bp.route('/api/get_purchase', methods=['GET'])
 def get_purchase():
     bill_no = request.args.get('bill_no')
     if not bill_no:
@@ -37,21 +37,21 @@ def get_purchase():
     return jsonify(result), 200
 
 
-@purchase_bp.route('/update_purchase_mrp',methods=['PUT'])
+@purchase_bp.route('/api/update_purchase_mrp',methods=['PUT'])
 def update_purchase_mrp():
     data=request.get_json()
     result = update_purchase_detail_data(data)
     return jsonify(result)
 
 
-@purchase_bp.route('/delete_purchase_data',methods=['DELETE'])
+@purchase_bp.route('/api/delete_purchase_data',methods=['DELETE'])
 def delete_purchase_data():
     data=request.get_json()
     result = delete_purchase_detail_data(data)
     return jsonify(result)
 
 
-@purchase_bp.route('/create_purchase_csv', methods=['GET'])
+@purchase_bp.route('/api/create_purchase_csv', methods=['GET'])
 def create_csv_endpoint():
     result = create_purchase_csv()
     if result['status'] == 'success':
